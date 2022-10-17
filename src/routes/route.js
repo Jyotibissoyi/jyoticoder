@@ -41,3 +41,79 @@ router.get('/student-details/:name', function(req, res){
 })
 
 module.exports = router;
+//1
+ router.get('/movies', function(req, res) {
+    let movies = ['After', 'Kung fu panda', 'Holydate' ]
+    console.log("my movies collection")
+    res.send(movies)
+    
+ })
+//  //2
+//  router.get('/movies/:indexNum', function(req, res) {
+//      let movies = ['After', 'Kung fu panda', 'Holydate' ];
+//         let a= req.params
+    
+//      res.send(movies[a.indexNum])
+//   })
+ //3
+//  router.get('/movies/:indexNum', function(req, res) {
+//     let movies = ['After', 'Kung fu panda', 'Holydate' ];
+//     let a= req.params
+//     let b= a.indexNum
+//     if (b<movies.length) {
+//       res.send(movies[a.indexNum])  
+//     }
+//     else {
+//       res.send("enter a valid number") 
+// }
+
+// })
+// //4
+// router.get('/films', function(req, res) {
+//     let films= [ {
+//        'id': 1,
+//         'name': 'The Shining'
+//        }, {
+//         'id': 2,
+//        'name': 'Incendies'
+//        }, {
+//         'id': 3,
+//         'name': 'Rang de Basanti'
+//        }, {
+//         'id': 4,
+//         'name': 'Finding Nemo'
+//        }]
+//        res.send(films)
+    
+//  })
+
+//5
+
+// router.get('/film/:filmId', function(req, res) {
+//     let film= [ {
+//        'id': 1,
+//         'name': 'The Shining'
+//        }, {
+//         'id': 2,
+//        'name': 'Incendies'
+//        }, {
+//         'id': 3,
+//         'name': 'Rang de Basanti'
+//        }, {
+//         'id': 4,
+//         'name': 'Finding Nemo'
+//        }]
+//        let a= req.params
+//        let b= a.filmId
+//         for (let i = 0; i <film.length; i++) {
+//          if (b==film[i].id) {
+//             res.send(film[i])
+//          } 
+//         }
+//          for (let i = 0; i < film.length; i++) {
+//             if (b!==film[i].id) {
+//                res.send("not exist")
+//             } 
+            
+//          }
+// })

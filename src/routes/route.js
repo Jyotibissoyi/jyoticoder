@@ -56,16 +56,16 @@ module.exports = router;
 //      res.send(movies[a.indexNum])
 //   })
  //3
-//  router.get('/movies/:indexNum', function(req, res) {
-//     let movies = ['After', 'Kung fu panda', 'Holydate' ];
-//     let a= req.params
-//     let b= a.indexNum
-//     if (b<movies.length) {
-//       res.send(movies[a.indexNum])  
-//     }
-//     else {
-//       res.send("enter a valid number") 
-// }
+ router.get('/movies/:indexNum', function(req, res) {
+    let movies = ['After', 'Kung fu panda', 'Holydate' ];
+    let a= req.params
+    let b= a.indexNum
+    if (b<movies.length) {
+      res.send(movies[a.indexNum])  
+    }
+    else {
+      res.send("enter a valid number") 
+}
 
 // })
 // //4

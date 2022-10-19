@@ -1,3 +1,4 @@
+const { application } = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -69,5 +70,34 @@ router.post("/test-post-4", function(req, res) {
     arr.push(ele)
     res.send(  { msg: arr , status: true }  )
 })
+
+
+//1
+router.get("/sol1", function(req, res) {
+let arr=[1, 2, 3, 5, 6, 7] //here 4 is missing
+let a = arr.length+1;
+sum2= a*(a+1)/2;
+let sum1= 0
+for (let i = 0; i < arr.length; i++) {
+    sum1= sum1+arr[i];
+}
+let missingNumber=(sum1-sum2);
+      res.send({missingNumber});
+});
+
+
+//2
+router.get("/sol2", function(req, res) {
+    let arr=[33, 34, 35,36, 37, 38] // here 32 is missing
+    let n = arr.length=1;
+    sum2= n*(n+1)/2;
+    let sum1= 0
+    for (let i = 0; i < arr.length; i++) {
+        sum1= sum1+arr[i];
+    }
+    let missingNumber=(sum1-sum2);
+          res.send({missingNumber});
+    });
+    
 
 module.exports = router;

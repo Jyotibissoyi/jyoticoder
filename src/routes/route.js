@@ -98,6 +98,58 @@ router.get("/sol2", function(req, res) {
     let missingNumber=(sum1-sum2);
           res.send({missingNumber});
     });
+/////////////////////////////////
+
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ]
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ]
+       },
+   ]
+   router.post('/players', function (req, res) {
+ 
+    //LOGIC WILL COME HERE
+const body = req.body
+  const player = players.find(x=> x.name ===body.name) 
+ // let player = body.name;
+   if(player){
+    res.send({massage: "player already exist"})
+   }
+   else {
+    players.push(body)
+    res.send(players)
+   }
+  console.log(players)  
     
+})
+
+
+ 
+
+
 
 module.exports = router;

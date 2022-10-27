@@ -6,10 +6,11 @@ const createUser= async function (req, res) {
     res.send({msg: savedData})
 }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
+const getUser= async function (req, res) {
+    let data= req.body.authorID
+    let allUsers= await UserModel.find({authorID:data})
     res.send({msg: allUsers})
 }
 
 module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
+module.exports.getUser= getUser

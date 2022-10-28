@@ -1,35 +1,37 @@
 const { count } = require("console")
+const bookModel = require("../models/bookModel")
 const BookModel= require("../models/bookModel")
-
+const userModel = require("../models/userModel")
+const UserModel= require("../models/userModel")
+//1
 const createBook= async function (req, res) {
     let data= req.body
-
     let savedData= await BookModel.create(data)
     res.send({msg: savedData})
 }
 //2
 const getBook= async function (req, res) {
-   let savedData= await BookModel.find({authorID})
+   let author= await UserModel.findOne({authorName:"chetan bhagat"})
+   let Author=author.authorID
+   console.log(Author)
+   let savedData=await BookModel.find({authorID:Author})
+
    res.send({msg: savedData})
 }
 // 3
-const authorsBook= async function (req, res) {
-   
 
-   let savedData= await BookModel.find({authorID :1})
-   res.send({msg: savedData})
-}
-//4
 const updateBookPrice = async function (req, res) {
-   let data = req.body.price
-   let allBooks= await BookModel.findOneAndUpdate( 
-      { bookName : "Two states"} , 
-      {authorID: 1},
-      { $set: data }
-   )
    
+   let allBooks= await BookModel.findOneAndUpdate( 
+      { bookName : "Harry porter"} , 
+    { $set: {price: 100} },
+      {new:true}
+   )
+   const authorid = allBooks.authorID
+   let authorofTS = await UserModel.find({authorID:authorid})
+
     
-    res.send( { msg: allBooks})
+    res.send( { msg: authorofTS})
 }
 
 const getBooksData= async function (req, res) {
@@ -69,6 +71,13 @@ const deleteBooks= async function (req, res) {
 
 
 
+
+
+
+
+
+
+
 // CRUD OPERATIONS:
 // CREATE
 // READ
@@ -77,7 +86,7 @@ const deleteBooks= async function (req, res) {
 
 
 module.exports.getBook=getBook
-module.exports. authorsBook= authorsBook
+
 module.exports.updateBookPrice=updateBookPrice
 
 

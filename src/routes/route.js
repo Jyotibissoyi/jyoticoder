@@ -22,8 +22,8 @@ router.post("/deleteBooks", BookController.deleteBooks)
 /////
 router.get("/getBook", BookController.getBook)
 
-router.get("/authorsBook", BookController.authorsBook)
-router.post("/updateBookPrice", BookController.updateBookPrice)
+//router.get("/authorsBook", BookController.authorsBook)
+router.get("/updateBookPrice", BookController.updateBookPrice)
 
 
 //MOMENT JS

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
 const app = express();
+const moment=require('moment')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +21,19 @@ app.use (
         next();
   }
   );
+//assignment qn
+app.use (
+    function (req, res, next) {
+        const today=moment
+        const ip=req.ip
+        const myroute=req.originalUrl
+
+        console.log (today.format("YYYY-MM-DD, h:mm:s"),ip, myroute);
+        next();
+  }
+  );
+
+
 
 app.use('/', route);
 

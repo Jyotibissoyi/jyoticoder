@@ -20,8 +20,8 @@ router.get("/test-me", function (req, res) {
 
 router.post("/createFbUser", userController.createFbUser)
 router.post("/loginFb", userController.loginFb)
-router.get("/getFbUser/:userId",midd.tokenValidate,userController.getFbUser)
-router.put("/putFbUser/:userId",midd.tokenValidate,userController.putFbUser)
-router.delete("/deleteFbUser/:userId",midd.tokenValidate,userController.deleteFbUser)
+router.get("/getFbUser/:userId",midd.tokenValidate,midd.tokenVerify,userController.getFbUser)
+router.put("/putFbUser/:userId",midd.tokenValidate,midd.tokenVerify,userController.putFbUser)
+router.delete("/deleteFbUser/:userId",midd.tokenValidate,midd.tokenVerify,userController.deleteFbUser)
 
 module.exports = router;

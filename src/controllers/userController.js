@@ -120,7 +120,7 @@ const loginFb = async function (req, res) {
     },
     "BABES"
   )
-  res.send({ msg: token })
+  res.send({status:true, msg: token })
 }
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY1Njg1ZGE3NmM1YWY5MGVjNjA5NzQiLCJpYXQiOjE2Njc1OTIyNTR9.
 //NayE-1LV5p1r2WnD-WWLqflQJKBr52mYwx3FGq9QQKU
@@ -144,7 +144,7 @@ const putFbUser = async function (req, res) {
     return res.send({ msg: "userId required" });
   }
   //let data = req.body.lastName
-  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{gender: "male ",age:25}},{ new:true })
+  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{gender: "female "}},{ new:true })
    res.send(Data)
 }
 //API-5😍😍😍😍😍😍
@@ -155,7 +155,7 @@ const deleteFbUser = async function (req, res) {
     return res.send({ msg: "userId required" });
   }
  // let data = req.body.lastName
-  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{isDeleted: true }},{ new:true })
+  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{isDeleted: true}},{ new:true })
    res.send(Data)
 }
 

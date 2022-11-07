@@ -41,3 +41,8 @@ If present, check that the token is valid.
 + You now have to move this similar code in all the three apis in a suitable middleware
 
 ``` 
+
+
+
+// WE USE CATCH AND TRY IN THIS ASSIGNMENT AND ALSO USE HTTP STATUS CODE
+//BY USE PREVIOUS ASSIGNMENT BRANCH

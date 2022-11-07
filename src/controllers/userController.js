@@ -92,83 +92,110 @@ const updateUser = async function (req, res) {
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
   res.send({ status: updatedUser, data: updatedUser });
 };
+// module.exports.createUser = createUser;
+// module.exports.getUserData = getUserData;
+// module.exports.updateUser = updateUser;
+// module.exports.loginUser = loginUser;
+
+
+//                             😎😀🥰 😎😀🥰 😎😀🥰  
 //ASSIGNMENT
-
-
+//USE TRY CATCH AND STATUS CODE IN THIS ASSIGNMENT
 
 
 //API-1😍😍😍😍😍😍
 const createFbUser = async function (req, res) {
-  let Data = req.body
-  let savedData = await userModel.create(Data)
-  res.send(savedData)
+  try {
+    let Data = req.body
+    let savedData = await userModel.create(Data)
+    res.status(201).send(savedData)
+  }
+
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 
 //API-2😍😍😍😍😍😍
 const loginFb = async function (req, res) {
-  let emailId = req.body.emailId
-  let password = req.body.password       // "emailId": "jyoti@gm//  "password": "jb25",
+  try {
+    let emailId = req.body.emailId
+    let password = req.body.password       // "emailId": "jyoti@gm//  "password": "jb25",
 
-  const Data = await userModel.findOne({ emailId: emailId, password: password })
+    const Data = await userModel.findOne({ emailId: emailId, password: password })
 
-  if (!Data) {
-    return res.send({ msg: "emaile or the password is not corerct" });
+    if (!Data) {
+      return res.status(400).send({ msg: "emaile or the password is not corerct" });
+    }
+    let token = jwt.sign(
+      {
+        userId: Data._id.toString()
+      },
+      "BABES"
+    )
+    res.status(201).send({ status: true, msg: token })
   }
-  let token = jwt.sign(
-    {
-      userId: Data._id.toString()
-    },
-    "BABES"
-  )
-  res.send({status:true, msg: token })
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY1Njg1ZGE3NmM1YWY5MGVjNjA5NzQiLCJpYXQiOjE2Njc1OTIyNTR9.
 //NayE-1LV5p1r2WnD-WWLqflQJKBr52mYwx3FGq9QQKU
 
 //API-3 😍😍😍😍😍😍
 const getFbUser = async function (req, res) {
-  const userId = req.params.userId
-  const getData = await userModel.findById(userId);
+  try {
+    const userId = req.params.userId
+    const getData = await userModel.findById(userId);
 
-  if (!getData) {
-    return res.send({ msg: "userId required" });
+    if (!getData) {
+      return res.status(400).send({ msg: "userId required" });
+    }
+    res.status(200).send(getData);
   }
-  res.send(getData);
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 
 //API-4😍😍😍😍😍😍
 const putFbUser = async function (req, res) {
-  let userId = req.params.userId;
-  const getData = await userModel.findById(userId);
-  if (!getData) {
-    return res.send({ msg: "userId required" });
+  try {
+    let userId = req.params.userId;
+    const getData = await userModel.findById(userId);
+    if (!getData) {
+      return res.status(400).send({ msg: "userId required" });
+    }
+    //let data = req.body.lastName
+    const Data = await userModel.findOneAndUpdate({ _id: userId },
+      { $set: { gender: "female " } }, { new: true })
+    res.status(200).send(Data)
   }
-  //let data = req.body.lastName
-  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{gender: "female "}},{ new:true })
-   res.send(Data)
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 //API-5😍😍😍😍😍😍
 const deleteFbUser = async function (req, res) {
-  let userId = req.params.userId;
-  const getData = await userModel.findById(userId);
-  if (!getData) {
-    return res.send({ msg: "userId required" });
+  try {
+    let userId = req.params.userId;
+    const getData = await userModel.findById(userId);
+    if (!getData) {
+      return res.status(400).send({ msg: "userId required" });
+    }
+    // let data = req.body.lastName
+    const Data = await userModel.findOneAndUpdate({ _id: userId }, { $set: { isDeleted: true } }, { new: true })
+    res.status(200).send(Data)
   }
- // let data = req.body.lastName
-  const Data = await userModel.findOneAndUpdate({_id: userId },{$set:{isDeleted: true}},{ new:true })
-   res.send(Data)
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 
 
-
-
-// module.exports.createUser = createUser;
-// module.exports.getUserData = getUserData;
-// module.exports.updateUser = updateUser;
-// module.exports.loginUser = loginUser;
 
 module.exports.createFbUser = createFbUser
 module.exports.getFbUser = getFbUser
 module.exports.loginFb = loginFb
 module.exports.putFbUser = putFbUser
-module.exports.deleteFbUser =deleteFbUser
+module.exports.deleteFbUser = deleteFbUser

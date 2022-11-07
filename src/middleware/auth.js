@@ -1,26 +1,32 @@
 const jwt = require("jsonwebtoken");
 
 const tokenValidate = function (req, res, next) {
-  let Token = req.headers["x-auth-token"]
+  try{let Token = req.headers["x-auth-token"]
   if (!Token) {
-    return res.send({ msg: "token required" })
+    return res.status(400).send({ msg: "token required" })
   }
   let decodToken = jwt.verify(Token, "BABES")
   //console.log(decodToken)
   if (!decodToken) {
-    return res.send({ msg: "invalid token" })
+    return res.status(401).send({ msg: "invalid token" })
   }
-  next()
+  next()}
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 
 const userVerify = function (req, res, next) {
-  const userId = req.params.userId
+   try {const userId = req.params.userId
   let Token = req.headers["x-auth-token"]
   let decodToken = jwt.verify(Token, "BABES")
   if (userId !== decodToken.userId) {
-    return res.send({ msg: "access denied" })
+    return res.status(403).send({ msg: "access denied" })
   }
-  next()
+  next()}
+  catch (error) {
+    res.status(500).send({ msg: error })
+  }
 }
 
 

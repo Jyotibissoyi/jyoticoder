@@ -1,6 +1,6 @@
 let axios = require("axios")
 
-
+//HANDLER-1
 let getStates = async function (req, res) {
 
     try {
@@ -20,6 +20,8 @@ let getStates = async function (req, res) {
 }
 
 
+//HANDLER-2
+
 let getDistricts = async function (req, res) {
     try {
         let id = req.params.stateId
@@ -38,11 +40,13 @@ let getDistricts = async function (req, res) {
     }
 }
 
+//HANDLER-3
+
 let getByPin = async function (req, res) {
     try {
         let pin = req.query.pincode
         let date = req.query.date
-        console.log(`query params are: ${pin} ${date}`)
+       // console.log(`query params are: ${pin} ${date}`)
         var options = {
             method: "get",
             url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pin}&date=${date}`
@@ -56,6 +60,8 @@ let getByPin = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+
+//HANDLER-4
 
 let getOtp = async function (req, res) {
     try {
@@ -77,9 +83,48 @@ let getOtp = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+//HANDLER-5
+
+let getByDistrictId = async function (req, res) {
+
+    try {
+
+      let district = req.query.district_Id;
+
+      let date = req.query.date;
+
+      let option = {
+
+        method: "get",
+
+        url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}&date=${date}`,
+
+      };
+
+      let result = await axios(option);
+
+      res.status(200).send({ msg: result.data });
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).send({ msg: err.message });
+
+    }
+
+  };
+
 
 
 module.exports.getStates = getStates
+
 module.exports.getDistricts = getDistricts
+
 module.exports.getByPin = getByPin
+
 module.exports.getOtp = getOtp
+
+module.exports.getByDistrictId = getByDistrictId
+
+

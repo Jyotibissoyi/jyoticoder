@@ -12,15 +12,18 @@ const createBlog = async (req, res) => {
             return res.status(400).send({ status: false, msg: "Invalid request Please provide valid Author  details" });
         }
 
-        if (!Blog.title) return res.status(400).send({ msg: " title is required " })
+        if (!Blog.title) return res.status(400).send({ msg: " title is required " }) 
         if (!Blog.body) return res.status(400).send({ msg: "body is required " })
         if (!Blog.authorId) return res.status(400).send({ msg: " authorId is required " })
         if (!Blog.category) return res.status(400).send({ msg: " category is require" })
 
+ 
+        let authorCreated = await blogModel.create(Blog)
+ 
 
-        let blogCreated = await blogModel.create(Blog)
+        return res.status(201).send({ data: authorCreated })
 
-       return res.status(201).send({ status: true, data: blogCreated })
+       
     } catch (error) {
        return res.status(500).send({ msg: error.message })
     }
@@ -35,9 +38,9 @@ const getBlogsData = async (req, res) => {
         let isValid = mongoose.Types.ObjectId.isValid(id)
         if (!isValid) return res.status(400).send({ msg: "enter valid objectID" })
 
-        let data = await blogModel.find({ authorId: id })
+        let data = await blogModel.find({ authorId: id, isDeleted: false, isPublished:true })
         
-        if (Object.keys(data).length == 0) {
+        if (data.length == 0) {
             return res.status(404).send({ status: false, msg: "No data Found" });
         }
        return res.status(200).send({ msg: data })
@@ -62,7 +65,8 @@ const updateBlog = async function (req, res) {
         let body = req.body.body
         let tags = req.body.tags
         let subcategory = req.body.subcategory
-
+        let isDeleted=req.body.isDeleted
+        let isPublished=req.body.isPublished
         if (Object.keys(author).length == 0) {
             return res.status(400).send({ status: false, msg: "Invalid request Please provide valid Author  details" });
         }
@@ -82,7 +86,7 @@ const updateBlog = async function (req, res) {
 
         let blogs = await blogModel.findOneAndUpdate({ _id: inputId },
             {
-                $set: { title: title, body: body, isPublished: true, publishedAt: date },
+                $set: { title: title, body: body,isDeleted:isDeleted,isPublished:isPublished, isPublished: true, publishedAt: date },
                 $push: { tags: tags, subcategory: subcategory }
             },
             { new: true })

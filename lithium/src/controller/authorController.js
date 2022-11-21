@@ -51,7 +51,7 @@ const createAuthor = async function (req, res) {
 
         // Password Id Validation
         var validatepassword = function (password) {
-            var re = /[A-Z]{1,}[a-z]{3,}[@#$%]{1,}[1-90]{1,}/;
+            var re = /[A-Za-z1-90]{4,}[@#$%]{1,}/;
             //Minimum 1 Upper add, Minimum 3 Lower Case,Mininum 1 specia; Symbol like (@#$%),mininum 1 number
             return re.test(password)
         };

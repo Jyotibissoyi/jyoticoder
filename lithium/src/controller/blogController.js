@@ -32,7 +32,7 @@ const createBlog = async (req, res) => {
 //<----------------This API used for Fetch Blogs of Logged in Author----------->//
 const getBlogsData = async (req, res) => {
     try {
-        let id = req.params.authorId;//
+        let id = req.query.authorId;//
         if (!id) return res.status(400).send({ status: false, msg: "id is required" })
 
         let isValid = mongoose.Types.ObjectId.isValid(id)

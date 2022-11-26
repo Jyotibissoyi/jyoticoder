@@ -7,6 +7,7 @@ const { checkName, checkEmail, mobileNum, validValue } = require('../Validator/v
 //>----------------------------CREATE-INTERN-API----------------------------<
 
 const createIntern = async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin','*');
     try {
         const { name, email, mobile, collegeName } = req.body
 

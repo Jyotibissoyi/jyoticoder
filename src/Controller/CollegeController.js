@@ -64,41 +64,44 @@ const createCollege = async (req, res) => {
 //>--------------------------GET-COLLEGE-DETAILS-API-----------------------------<
 
 const getCollegeDetails = async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     try {
 
         const { collegeName } = req.query
-    
+
         if (!validValue(collegeName)) {
             return res.status(400).send({ status: false, message: 'Please Enter CollegeName😑😑😑' });
         }
 
-        if (!strLower(collegeName)){
+        if (!strLower(collegeName)) {
             return res.status(400).send({ status: false, message: 'Please Enter CollegeName In LowerCase Only😑😑😑' });
         }
-        
-        const getCollege = await collegeModel.findOne({ name: collegeName })
+
+            const getCollege = await collegeModel.findOne({ name: collegeName })
+            .select({ _id: 1, name:1, fullName: 1, logoLink:1})
 
         if (!getCollege) {
             return res.status(400).send({ status: false, message: 'CollegeName Does Not Exist😑😑😑' });
         }
 
-        const getInterns = await internModel.find({ collegeId: getCollege._id }).select({ name: 1, email: 1, mobile: 1, _id: 1 })
+        const getInterns = await internModel.find({ collegeId: getCollege._id })
+            .select({ name: 1, email: 1, mobile: 1, _id: 1 })
 
         const details = {
             name: getCollege.name,
             fullName: getCollege.fullName,
             logoLink: getCollege.logoLink,
             interns: getInterns
+             }
+        if(getInterns.length==0){
+            return res.status(200).send({getCollege: getCollege , interns:[{msg:"intern details not found 😟😟😟"}]})
+         }
+           else    return res.status(200).send({ status: true, data: details });
         }
-
-        return res.status(200).send({ status: true, data: details });
-    }
     catch (error) {
         return res.status(500).send({ status: false, message: error.message });
     }
 }
-
-
 
 module.exports = { createCollege, getCollegeDetails }
 
